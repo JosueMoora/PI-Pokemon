@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { Pokemon, Type } = require('../db.js');
-const { getByName, getPokemonById, getAll, getPokemonByIdFromDb } = require('../controllers/getPokemons.js');
+const { getByName, getById, getAll } = require('../controllers/getPokemons.js');
 const router = Router();
 
 router.get('/', async (req, res) => {
@@ -24,13 +24,9 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        if (id < 252 ) {
-            const response = await getPokemonById(id);
-            return res.status(200).send(response);
-        } else {
-            const fromDb = await getPokemonByIdFromDb(id);
-            return res.status(200).send(fromDb);
-        }
+        const response = await getById(id);
+        return res.status(200).send(response);
+        
     } catch (error) {
         res.status(400).send(error.message);
     }
@@ -59,6 +55,7 @@ router.post('/', async (req, res) => {
         res.status(400).send(error.message);
     }
 });
+
 
 router.delete('/:id', async (req, res) => {
     try {

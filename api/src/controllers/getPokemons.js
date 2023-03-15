@@ -1,109 +1,61 @@
 const axios = require("axios");
 const { Pokemon, Type } = require("../db");
 
-
 const getAll = async () => {
-try {
-    const api = await axios.get('https://pokeapi.co/api/v2/pokemon?offset=0&limit=10'); 
-        const urls = await api.data.results?.map((p) => axios.get(p.url));
-        const getAll = await Promise.all(urls);
-        const result = getAll.map((pokemon) => {
-            return {
-            id: pokemon.data.id,
-            name: pokemon.data.name,
-            hp: pokemon.data.stats[0].base_stat,
-            attack: pokemon.data.stats[1].base_stat,
-            defense: pokemon.data.stats[2].base_stat,
-            speed: pokemon.data.stats[5].base_stat,
-            height: pokemon.data.height,
-            weight: pokemon.data.weight,
-            image: pokemon.data.sprites.other.home.front_default,
-            types: pokemon.data.types.map((type) => type.type.name)
-        }});
+  try {
+    const api = await axios.get(
+      "https://pokeapi.co/api/v2/pokemon?offset=0&limit=10"
+    );
+    const urls = await api.data.results?.map((p) => axios.get(p.url));
+    const getAll = await Promise.all(urls);
+    const result = getAll.map((pokemon) => {
+      return {
+        id: pokemon.data.id,
+        name: pokemon.data.name,
+        hp: pokemon.data.stats[0].base_stat,
+        attack: pokemon.data.stats[1].base_stat,
+        defense: pokemon.data.stats[2].base_stat,
+        speed: pokemon.data.stats[5].base_stat,
+        height: pokemon.data.height,
+        weight: pokemon.data.weight,
+        image: pokemon.data.sprites.other.home.front_default,
+        types: pokemon.data.types.map((type) => type.type.name),
+      };
+    });
     const db = await Pokemon.findAll({
-        include: {
-          model: Type,
-          attributes: ['name'],
-                through: {
-                    attributes: []
-                }
-        }
-      });
-      if (db.length){
-        return [...result, ...db]
-      } else {
-        return [...result]
-      }
-
-} catch (error) {
-    throw new Error (error);    
-}
-  
-
-
-}
-
-const getPokemonByNameFromDb = async (name) => {
-  const fromDb = await Pokemon.findAll({
-      where: {
-          name: name,
-          include: {
-              model: Type,
-              attributes: ['name'],
-              through: {
-                  attributes: []
-              }
-          },
-      }
-  });
-  return fromDb;
-}
+      include: {
+        model: Type,
+        attributes: ["name"],
+        through: {
+          attributes: [],
+        },
+      },
+    });
+    if (db.length) {
+      return [...result, ...db];
+    } else {
+      return [...result];
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+};
 
 const getByName = async (name) => {
-//   const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}/`);
-//   const result = response.data;
-//      const fromApi = {
-//           id: result.id,
-//           name: result.name,
-//           hp: result.stats[0].base_stat,
-//           attack: result.stats[1].base_stat,
-//           defense: result.stats[2].base_stat,
-//           speed: result.stats[5].base_stat,
-//           height: result.height,
-//           weight: result.weight,
-//           image: result.sprites.other.home.front_default,
-//           custom: false,
-//           types: result.types.map((type) => type.type.name)
-//       };
-
-//       const fromDb = await Pokemon.findOne({
-//         where: {
-//             name: name,
-//             include: {
-//                 model: Type,
-                
-//             },
-//         }
-//     });
-
-//     if (fromDb){
-//         fromDb
-//       } else {
-//         return fromApi
-//       }
-
-try {
+  try {
     let fromDb = await Pokemon.findOne({
       where: {
-        name: name
+        name: name,
       },
       include: {
         model: Type,
-      }
-    });//
+      },
+    }); //
     if (fromDb) return fromDb;
     let pokeName = {};
-    const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
+    const response = await axios.get(
+      `https://pokeapi.co/api/v2/pokemon/${name}`
+    );
     const r = await response.data;
     pokeName = {
       id: r.id,
@@ -119,61 +71,74 @@ try {
     };
     return pokeName;
   } catch (error) {
-    return 'There are no matches getByName';
+    return "There are no matches getByName";
   }
 };
 
-const getPokemonByIdFromDb = async (id) => {
-  const result = await Pokemon.findByPk(id, {
-      include: {
-          model: Type,
-          attributes: ['name'],
-          through: {
-              attributes: []
-          }
-      }
-  });
-  return {
-      id: result.id,
-      name: result.name,
-      hp: result.hp,
-      attack: result.attack,
-      defense: result.defense,
-      speed: result.speed,
-      height: result.height,
-      weight: result.weight,
-      image: result.image,
-      custom: result.custom,
-      types: result.Types.map((type) => type.name)
-  };
-}
+// const getPokemonByIdFromDb = async (id) => {
+//   const result = await Pokemon.findByPk(id, {
+//     include: {
+//       model: Type,
+//       attributes: ["name"],
+//       through: {
+//         attributes: [],
+//       },
+//     },
+//   });
+//   return {
+//     id: result.id,
+//     name: result.name,
+//     hp: result.hp,
+//     attack: result.attack,
+//     defense: result.defense,
+//     speed: result.speed,
+//     height: result.height,
+//     weight: result.weight,
+//     image: result.image,
+//     custom: result.custom,
+//     types: result.Types.map((type) => type.name),
+//   };
+// };
 
-const getPokemonById = async (id) => {
-  const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}/`);
-  const result = response.data;
+const getById = async (id) => {
+  try {
+    const fromDb = await Pokemon.findByPk(id, {
+            include: {
+              model: Type,
+              attributes: ["name"],
+              through: {
+                attributes: [],
+              },
+            },
+          });
+    if (fromDb) {
+      return fromDb;
+    } else {
+      const response = await axios.get(
+        `https://pokeapi.co/api/v2/pokemon/${id}/`
+      );
+      const result = response.data;
       return {
-          id: result.id,
-          name: result.name,
-          hp: result.stats[0].base_stat,
-          attack: result.stats[1].base_stat,
-          defense: result.stats[2].base_stat,
-          speed: result.stats[5].base_stat,
-          height: result.height,
-          weight: result.weight,
-          image: result.sprites.other.home.front_default,
-          custom: false,
-          types: result.types.map((type) => type.type.name)
+        id: result.id,
+        name: result.name,
+        hp: result.stats[0].base_stat,
+        attack: result.stats[1].base_stat,
+        defense: result.stats[2].base_stat,
+        speed: result.stats[5].base_stat,
+        height: result.height,
+        weight: result.weight,
+        image: result.sprites.other.home.front_default,
+        custom: false,
+        types: result.types.map((type) => type.type.name),
       };
-} 
-
-
-
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 module.exports = {
-  getPokemonByIdFromDb,
-  getPokemonById, 
-  getPokemonByNameFromDb,
+  getById,
   getByName,
   getAll,
-}
-
+};
