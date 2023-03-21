@@ -34,23 +34,30 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        let { name, hp, attack, defense, speed, height, weight, image, types, custom } = req.body;
+        let { name, hp, attack, defense, speed, height, weight, image, types } = req.body;
         const pokemonDb = await Pokemon.findAll();
-        let id = 251 + pokemonDb.length;
+        let id = 255 + pokemonDb.length;
         const find = await Pokemon.findOne({ where: {name: name}})
 
         
-        if (!name || !hp || !attack || !defense || !speed || !height || !weight || !types) throw new Error ("Missing parameters");
-        if (find) throw new Error ("Pokemon already exists");
+        if (!name || !hp || !attack || !defense || !speed || !height || !weight || !types) throw new Error ("Debe tener todos los parametros");
+        if (find) throw new Error ("El pokemon ya existe");
         if (!image) image = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Pokebola-pokeball-png-0.png/800px-Pokebola-pokeball-png-0.png";
 
-        const newPokemon = { id: ++id, name, hp, attack, defense, speed, height, weight, image, custom }
+        const newPokemon = { id: ++id, name, hp, attack, defense, speed, height, weight, image }
         const create = await Pokemon.create(newPokemon);
+        types.map(async (type) => {
+            const encontrado = await Type.findOrCreate({
+              where: {
+                name: type,
+              },
+            });
+            await create.addType(encontrado[0]);
+          });
+        // let pokemonType = await Type.findAll({where: {name: types}});
+        // await create.addType(pokemonType);
 
-        let pokemonType = await Type.findAll({where: {name: types}});
-        await create.addType(pokemonType);
-
-        res.status(200).send("Pokemon successfully Created");
+        res.status(200).json({... create.dataValues, types});
     } catch (error) {
         res.status(400).send(error.message);
     }
