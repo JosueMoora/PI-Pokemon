@@ -1,1 +1,6 @@
 export const  GET_POKEMONS = "GET_POKEMONS"
+export const  GET_POKEMON = "GET_POKEMON"
+export const  GET_BY_NAME = "GET_BY_NAME"
+export const CREATE_POKEMON = "CREATE_POKEMON"
+export const GET_TYPES = "GET_TYPES"
+export const GET_SORT = "GET_SORT"
