@@ -46,7 +46,7 @@ function Card({ id, name, image, types, attack, weight, height }) {
             <p className={styles.statValue}>{attack}</p>
           </div>
           <div className={styles.stat}>
-            <p className={styles.statLabel}>Weight</p>
+            <p className={styles.statLabel}>Height</p>
             <p className={styles.statValue}>{height}</p>
 
           </div>
