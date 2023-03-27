@@ -1,0 +1,35 @@
+.container{
+    color: white;
+    margin-top: 200px;
+}
+.container h1 {
+    font-size: 70px;
+    margin-left: 10%;
+}
+
+.container p {
+    font-size: 30px;
+    margin-left: 10%;
+    width: 600px;
+    text-align: justify;
+    /* margin-bottom: -200px; */
+}
+
+.container img {
+    margin-top: -400px;
+    margin-left: 60%;
+    width: 400px;
+}
+
+.container button {
+    
+    font-family: 'Signika Negative', sans-serif;
+    text-align: center;
+    font-size: 40px;
+    padding: 10px 20px;
+    color: white;
+    background-color: rgba(23, 23, 23, 0.618);
+    border: none;
+    border-radius: 20px;
+    margin-left: 35%;
+}

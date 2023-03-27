@@ -1,0 +1,46 @@
+
+.container{
+  padding-top: 6%;
+  /* border-radius: 20px; */
+}
+
+
+.detail  {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top: 15px;
+    margin-left: 15%;
+    margin-right: 15%;
+    border-radius: 20px;
+    background-color: rgba(23, 23, 23, 0.618)
+}
+
+
+  
+.imagen img {
+  width: 400px;
+  height: 400px;
+}
+.imagen {
+    width: 400px;
+    height: 400px;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+}
+.imagen h1{
+  text-align: center;
+  color: white;
+  
+}
+
+.info {
+    width: 30%;
+    color: white;
+}
+
+.info h1{
+  text-align: center;
+}
+

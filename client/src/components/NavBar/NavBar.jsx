@@ -1,9 +1,10 @@
 import axios from "axios"
 import { useState } from "react"
-import { NavLink } from "react-router-dom"
+import { useNavigate, NavLink } from "react-router-dom"
 import style from "./NavBar.module.css"
 const NavBar = ()=> {
     const [name, setName] = useState("")
+    const navigate = useNavigate()
     const handleChange = (event) =>{
         setName(event.target.value)
     }
@@ -13,26 +14,35 @@ const NavBar = ()=> {
         } else {
             axios.get(`http://localhost:3001/pokemons/?name=${name}`.toLowerCase())
         .then((response) => {
-          <NavLink to={"http://localhost:3001/pokemons/Detail/" + response.data.id}></NavLink>
-        })
-        
-        }
+          if (!response.data.id) return navigate("/error")
+          navigate("/detail/" + response.data.id)
+        })}
     }
     return (
-        <div className={style.div}>
-            <NavLink to="/home">HOME</NavLink>
-            <NavLink to="/create">CREATE POKEMON</NavLink>
-            <input type="text" onChange={handleChange} placeholder="search your pokemon"
-          value={name}
-          onKeyDown={(evento) => {
-            if (evento.key === "Enter") {
-              search();
-            }
-          }}
-        ></input>
-        <button  onClick={search}>Buscar</button>
-            <NavLink to="/">CLOSE APP</NavLink>
-        </div>
+      <div className={style.div}>
+        <nav className={style.nav}>
+          <NavLink exact to="/home" className={style.active}>
+            Home
+          </NavLink>
+          <NavLink exact to="/create" className={style.active}>
+            Create Pokemon
+          </NavLink>
+      <div className={style.searchForm}>
+      <input type="text" onChange={handleChange} placeholder="search for any pokemon"value={name} onKeyDown={(event) => {
+            if (event.key === "Enter") {
+             search()
+             setName('')
+}}} />
+      </div>
+          <NavLink exact to="/about" className={style.active}>
+            About
+          </NavLink>
+
+          <NavLink exact to="/" className={style.active}>
+            Close App
+          </NavLink>
+    </nav>
+    </div>
     )
 }
 

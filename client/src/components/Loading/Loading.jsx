@@ -3,9 +3,8 @@ import style from "./Loading.module.css"
 
 const Loading = ()=> {
     return (
-        <div>
+        <div  className={style.loading}>
             <img src={img} alt="Loading" />
-            <h1>Loading...</h1>
         </div>
 
     )

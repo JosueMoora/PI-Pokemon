@@ -1,4 +1,4 @@
-import { GET_POKEMONS, GET_POKEMON, CREATE_POKEMON, GET_BY_NAME, GET_TYPES, GET_SORT } from './actions-types'
+import { GET_POKEMONS, CREATE_POKEMON, GET_TYPES, FILTER_BY_TYPE, FILTER_BY_CREATED, ORDER_BY_ATTACK, ORDER_BY_NAME } from './actions-types'
 import axios from 'axios'
 export const getPokemons = () =>{
     return async function (dispatch) {
@@ -18,21 +18,6 @@ export function getTypes() {
         }).catch((error) => console.log("Error on getTypes Action", error))
     };
   }
-export const getPokemon = (id) =>{
-    return async function (dispatch) {
-        const result = await axios.get(`http://localhost:3001/pokemons/${id}`) 
-        const pokemon = result.data
-        dispatch({type: GET_POKEMON, payload: pokemon})
-    }
-}
-export const getByName = (name) =>{
-    return async function (dispatch) {
-        const result = await axios.get(`http://localhost:3001/pokemons/?name=${name}`)
-        const pokemon = result.data
-        if (pokemon.name) dispatch({type: GET_BY_NAME, payload: pokemon})
-        else dispatch({type: GET_BY_NAME, payload: {info: 'not found'}})
-    }
-}
 
 export const createPokemon = (pokemon) =>{
     return async function (dispatch) {
@@ -41,6 +26,31 @@ export const createPokemon = (pokemon) =>{
     }
 }
 
-export const getSort = (payload) => dispatch => {
-    return dispatch({ type: GET_SORT, payload })
-}
+export const filterByType = (payload) => dispatch => {
+  return dispatch({
+      type: FILTER_BY_TYPE,
+      payload
+  })
+};
+
+export const filterByCreated = (payload) => dispatch => {
+  return dispatch({
+      type: FILTER_BY_CREATED,
+      payload
+  })
+};
+
+export const orderByAttack = (payload) => dispatch => {
+  return dispatch({
+      type: ORDER_BY_ATTACK,
+      payload
+  })
+};
+
+
+export const orderByName = (payload) => dispatch => {
+  return dispatch({
+      type: ORDER_BY_NAME,
+      payload
+  })
+};

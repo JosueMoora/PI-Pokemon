@@ -1,25 +1,42 @@
-const Paginado = ({ current, setCurrent, max, input, setInput }) => {
-  const next = () => {
-    setCurrent(current + 1);
-    setInput(input + 1);
-  };
-  const previous = () => {
-    setCurrent(current - 1);
-    setInput(input + 1);
-  };
+import React from "react";
+import style from './Pagination.module.css'
+const Pagination = ({
+  pokemonsPerPage,
+  pokemons,
+  pagination,
+  handleNext,
+  handlePrevious,
+}) => {
+  
+  const numOfPages = [];
+  const amountOfPages = Math.ceil(pokemons / pokemonsPerPage);
+  for (let i = 1; i <= amountOfPages; i++) {
+    numOfPages.push(i);
+  }
 
   return (
-    <div>
-        <button disabled={current === 1} onClick={previous}>
-            {"<"}
-        </button>
-        <input type="text" maxLength="2" name="page" autoComplete="off" onChange={(event)=> setInput(event)} value={input} />
-        <span>of {max}</span>
-        <button disabled={current === max} onClick={next}>
-            {">"}
-        </button>
+    <div className={style.pagination}>
+      <button className="prev-button" onClick={(e) => handlePrevious(e)}>
+        ←
+      </button>
+
+      {numOfPages?.map((page) => {
+        return (
+          <button
+            className="page-num"
+            id={page}
+            key={page}
+            onClick={() => pagination(page)}
+          >
+            {page}
+          </button>
+        );
+      })}
+      <button className="next-button" onClick={(e) => handleNext(e)}>
+        →
+      </button>
     </div>
-  )
+  );
 };
 
-export default Paginado;
+export default Pagination;

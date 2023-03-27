@@ -1,32 +1,23 @@
 import "./App.css";
-import { Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
-import { Home, Detail, Form, Landing } from "./views";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { getTypes } from "./redux/actions";
+import { Home, Detail, Form, Landing, Error, About } from "./views";
+import Footer from "./components/Footer/Footer";
 function App() {
-  const dispatch = useDispatch()
-  // const allTypes = useSelector(state => state.types)
 
-  useEffect(() => {
-    dispatch(getTypes());
-  }, [dispatch]);
   return (
     <div className="App">
-        {useLocation().pathname !== "/" && <NavBar /> }
-        <Route exact path="/">
-          <Landing />
-        </Route>
-        <Route path="/home">
-          <Home />
-        </Route>
-        <Route path="/detail/:id">
-          <Detail />
-        </Route>
-        <Route path="/create">
-          <Form />
-        </Route>
+        {useLocation().pathname !== "/" && <NavBar/> }
+        <Routes>
+        <Route exact path="/" element={<Landing />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/detail/:id" element={<Detail />} />
+        <Route path="/create" element={<Form />} />        
+        <Route path="/error" element={<Error/>} />        
+        <Route path="/about" element={<About/>} />        
+        </Routes>
+        {useLocation().pathname !== "/" && <Footer/> }
+        
     </div>
   );
 }

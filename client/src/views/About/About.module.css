@@ -1,0 +1,30 @@
+.div{
+    padding-top: 10em;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    text-align: justify;
+    border-radius: 20px;
+    background-color: rgba(23, 23, 23, 0.618);
+    margin: 35px;
+    padding-bottom: 10px;
+    width: 50%;
+
+    
+    
+}
+
+.container h1 {
+    color: white;
+    text-align: center;
+}
+
+.container p{
+    color: white;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-weight: bold;
+    font-size: large;
+}

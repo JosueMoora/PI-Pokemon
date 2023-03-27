@@ -4,7 +4,7 @@ const { Pokemon, Type } = require("../db");
 const getAll = async () => {
   try {
     const api = await axios.get(
-      "https://pokeapi.co/api/v2/pokemon?offset=0&limit=20"
+      "https://pokeapi.co/api/v2/pokemon?"
     );
     const urls = await api.data.results?.map((p) => axios.get(p.url));
     const getAll = await Promise.all(urls);
@@ -18,11 +18,11 @@ const getAll = async () => {
         speed: pokemon.data.stats[5].base_stat,
         height: pokemon.data.height,
         weight: pokemon.data.weight,
-        image: pokemon.data.sprites.other.home.front_default,
+        image: pokemon.data.sprites.other["official-artwork"]["front_default"],
         types: pokemon.data.types.map((type) => type.type.name),
       };
     });
-    const db = await Pokemon.findAll({
+    let response = await Pokemon.findAll({
       include: {
         model: Type,
         attributes: ["name"],
@@ -30,20 +30,32 @@ const getAll = async () => {
           attributes: [],
         },
       },
+      order: ["id"],
     });
-    if (db.length) {
-      return [...result, ...db];
-    } else {
-      return [...result];
-    }
+    const fromDb = response?.map((pokemon) => {
+      return {
+        id: pokemon.id,
+        name: pokemon.name,
+        hp: pokemon.hp,
+        attack: pokemon.attack,
+        defense: pokemon.defense,
+        speed: pokemon.speed,
+        height: pokemon.height,
+        weight: pokemon.weight,
+        image: pokemon.image,
+        types: pokemon.Types.map((type) => type.name),
+      };
+    });
+
+    return [...result, ...fromDb];
   } catch (error) {
-    throw new Error(error);
+    throw new Error("cannot get all pokemons");
   }
 };
 
 const getByName = async (name) => {
   try {
-    let fromDb = await Pokemon.findOne({
+    const fromDb = await Pokemon.findOne({
       where: {
         name: name,
       },
@@ -51,7 +63,18 @@ const getByName = async (name) => {
         model: Type,
       },
     }); //
-    if (fromDb) return fromDb;
+    if (fromDb) return {
+        id: fromDb.id,
+        name: fromDb.name,
+        hp: fromDb.hp,
+        attack: fromDb.attack,
+        defense: fromDb.defense,
+        speed: fromDb.speed,
+        height: fromDb.height,
+        weight: fromDb.weight,
+        image: fromDb.image,
+        types: fromDb.Types.map((type) => type.name),
+      };
     let pokeName = {};
     const response = await axios.get(
       `https://pokeapi.co/api/v2/pokemon/${name}`
@@ -67,7 +90,7 @@ const getByName = async (name) => {
       height: res.height,
       weight: res.weight,
       image: res.sprites.other["official-artwork"]["front_default"],
-      type: res.types.map((t) => t.type.name),
+      types: res.types.map((t) => t.type.name),
     };
     return pokeName;
   } catch (error) {
@@ -75,20 +98,30 @@ const getByName = async (name) => {
   }
 };
 
-
 const getById = async (id) => {
   try {
     const fromDb = await Pokemon.findByPk(id, {
-            include: {
-              model: Type,
-              attributes: ["name"],
-              through: {
-                attributes: [],
-              },
-            },
-          });
+      include: {
+        model: Type,
+        attributes: ["name"],
+        through: {
+          attributes: [],
+        },
+      },
+    });
     if (fromDb) {
-      return fromDb;
+      return {
+        id: fromDb.id,
+        name: fromDb.name,
+        hp: fromDb.hp,
+        attack: fromDb.attack,
+        defense: fromDb.defense,
+        speed: fromDb.speed,
+        height: fromDb.height,
+        weight: fromDb.weight,
+        image: fromDb.image,
+        types: fromDb.Types.map((type) => type.name),
+      }
     } else {
       const response = await axios.get(
         `https://pokeapi.co/api/v2/pokemon/${id}/`
@@ -103,8 +136,7 @@ const getById = async (id) => {
         speed: result.stats[5].base_stat,
         height: result.height,
         weight: result.weight,
-        image: result.sprites.other.home.front_default,
-        custom: false,
+        image: result.sprites.other["official-artwork"]["front_default"],
         types: result.types.map((type) => type.type.name),
       };
     }
