@@ -34,6 +34,7 @@ const Home = () => {
   //filter
   const types = useSelector((state) => state.types);
   const [order, setOrder] = useState("");
+  console.log(order);
 
 
   //filtered

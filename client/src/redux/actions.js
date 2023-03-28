@@ -1,65 +1,75 @@
-import { GET_POKEMONS, GET_BY_NAME, CREATE_POKEMON, GET_TYPES, FILTER_BY_TYPE, FILTER_BY_CREATED, ORDER_BY_ATTACK, ORDER_BY_NAME } from './actions-types'
-import axios from 'axios'
-export const getPokemons = () =>{
-    return async function (dispatch) {
-        const result = await axios.get("http://localhost:3001/pokemons/") 
-        const pokemons = result.data
-        dispatch({type: GET_POKEMONS, payload: pokemons })
-    }
-}
-export function getTypes() {
-    return (dispatch) => {
-      return axios.get(`http://localhost:3001/types`)
-        .then((response) => {
-          dispatch({
-            type: GET_TYPES,
-            payload: response.data
-          });
-        }).catch((error) => console.log("Error on getTypes Action", error))
-    };
-  }
+import {
+  GET_POKEMONS,
+  GET_BY_NAME,
+  CREATE_POKEMON,
+  GET_TYPES,
+  FILTER_BY_TYPE,
+  FILTER_BY_CREATED,
+  ORDER_BY_ATTACK,
+  ORDER_BY_NAME,
+} from "./actions-types";
+import axios from "axios";
+
+
+export const getPokemons = () => {
+  return async function (dispatch) {
+    const result = await axios.get("/pokemons/");
+    const pokemons = result.data;
+    dispatch({ type: GET_POKEMONS, payload: pokemons });
+  };
+};
+export const getTypes = () => {
+  return async function (dispatch) {
+    return axios
+      .get(`/types`)
+      .then((response) => {
+        dispatch({
+          type: GET_TYPES,
+          payload: response.data,
+        });
+      })
+      .catch((error) => console.log("Error on getTypes Action", error));
+  };
+};
 
 export const getByName = (name) => {
   return async function (dispatch) {
-    const result = await axios.get(`http://localhost:3001/pokemons?name=${name}`) 
-        const pokemon = result.data
-        dispatch({type: GET_BY_NAME, payload: pokemon })
-
-  }
-}
-
-export const createPokemon = (pokemon) =>{
-    return async function (dispatch) {
-        const result = await axios.post(`http://localhost:3001/pokemons/`,pokemon) 
-        dispatch({type: CREATE_POKEMON, payload: result.data})
-    }
-}
-
-export const filterByType = (payload) => dispatch => {
-  return dispatch({
-      type: FILTER_BY_TYPE,
-      payload
-  })
+    const result = await axios.get(`/pokemons?name=${name}`);
+    const pokemon = result.data;
+    dispatch({ type: GET_BY_NAME, payload: pokemon });
+  };
 };
 
-export const filterByCreated = (payload) => dispatch => {
+export const createPokemon = (pokemon) => {
+  return async function (dispatch) {
+    const result = await axios.post(`/pokemons/`, pokemon);
+    dispatch({ type: CREATE_POKEMON, payload: result.data });
+  };
+};
+export const filterByType = (payload) => (dispatch) => {
   return dispatch({
-      type: FILTER_BY_CREATED,
-      payload
-  })
+    type: FILTER_BY_TYPE,
+    payload,
+  });
 };
 
-export const orderByAttack = (payload) => dispatch => {
+export const filterByCreated = (payload) => (dispatch) => {
   return dispatch({
-      type: ORDER_BY_ATTACK,
-      payload
-  })
+    type: FILTER_BY_CREATED,
+    payload,
+  });
 };
 
-
-export const orderByName = (payload) => dispatch => {
+export const orderByAttack = (payload) => (dispatch) => {
   return dispatch({
-      type: ORDER_BY_NAME,
-      payload
-  })
+    type: ORDER_BY_ATTACK,
+    payload,
+  });
+};
+
+export const orderByName = (payload) => (dispatch) => {
+  return dispatch({
+    type: ORDER_BY_NAME,
+    payload,
+  });
 };
