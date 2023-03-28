@@ -1,22 +1,21 @@
-import axios from "axios"
 import { useState } from "react"
-import { useNavigate, NavLink } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { NavLink } from "react-router-dom"
+import { getByName } from "../../redux/actions"
 import style from "./NavBar.module.css"
 const NavBar = ()=> {
+  const dispatch = useDispatch()
     const [name, setName] = useState("")
-    const navigate = useNavigate()
     const handleChange = (event) =>{
         setName(event.target.value)
     }
-    const search = ()=> {
+    const handleSubmit = ()=> {
         if (!name){
-            alert("debe introducir un nombre")
+            alert("you must enter a name")
         } else {
-            axios.get(`http://localhost:3001/pokemons/?name=${name}`.toLowerCase())
-        .then((response) => {
-          if (!response.data.id) return navigate("/error")
-          navigate("/detail/" + response.data.id)
-        })}
+            dispatch(getByName(name))
+            setName('')
+        }
     }
     return (
       <div className={style.div}>
@@ -30,8 +29,7 @@ const NavBar = ()=> {
       <div className={style.searchForm}>
       <input type="text" onChange={handleChange} placeholder="search for any pokemon"value={name} onKeyDown={(event) => {
             if (event.key === "Enter") {
-             search()
-             setName('')
+             handleSubmit()        
 }}} />
       </div>
           <NavLink exact to="/about" className={style.active}>

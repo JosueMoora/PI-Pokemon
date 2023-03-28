@@ -32,7 +32,7 @@
   }
   
   .cardGround {
-    background: url(../../assets/types/yellow.png);
+    background: url(../../assets/types/brown.png);
     background-size: cover;
   }
   
@@ -82,7 +82,7 @@
   
   
   .cardPsychic {
-    background: url(../../assets/types/pink.png);
+    background: url(../../assets/types/yellow.png);
     background-size: cover;
   }
   
@@ -135,22 +135,15 @@
   .name {
     color: white;
     font-size: 24px;
-    /* font-weight: bold; */
     margin: 0;
-    /* text-shadow: 2px 2px #ffffff; */
-    /* text-transform: uppercase; */
+
   }
 
   
   .type {
     color: white;
     font-size: 20px;
-    /* font-weight:bold; */
-    /* text-transform: uppercase; */
-
     margin: 4px 0 0 0;
-    /* margin-right: 10px;
-    margin-left: 10px; */
   }
   
   
@@ -170,14 +163,10 @@
   
   .statLabel {
     font-size: 18px;
-    /* font-weight: bold; */
-    /* text-transform: uppercase; */
   }
   
   .statValue {
     font-size: 24px;
-    /* font-weight: bold; */
-    /* text-transform: uppercase; */
   }
 
   

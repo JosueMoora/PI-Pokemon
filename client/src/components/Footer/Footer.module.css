@@ -10,10 +10,14 @@
 
 .icon{
 text-decoration: none;
-    color: #Fff;
-    display: inline-block;
-    margin: 5px;
-    font-size: 30px;
+display: inline-block;
+margin: 5px;
+font-size: 30px;
+}
+
+.icon img{
+    width: 40px;
+    border: none;
 }
 
 .icon:hover{

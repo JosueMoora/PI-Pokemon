@@ -3,9 +3,9 @@ import style from './Pagination.module.css'
 const Pagination = ({
   pokemonsPerPage,
   pokemons,
-  pagination,
   handleNext,
   handlePrevious,
+  currentPage,
 }) => {
   
   const numOfPages = [];
@@ -16,25 +16,7 @@ const Pagination = ({
 
   return (
     <div className={style.pagination}>
-      <button className="prev-button" onClick={(e) => handlePrevious(e)}>
-        ←
-      </button>
-
-      {numOfPages?.map((page) => {
-        return (
-          <button
-            className="page-num"
-            id={page}
-            key={page}
-            onClick={() => pagination(page)}
-          >
-            {page}
-          </button>
-        );
-      })}
-      <button className="next-button" onClick={(e) => handleNext(e)}>
-        →
-      </button>
+      {numOfPages.length > 1 ? <> <button onClick={(e) => handlePrevious(e)}> ← </button> <h1>{currentPage} of {numOfPages.length}</h1> <button onClick={(e) => handleNext(e)}> → </button> </> : <h1>{currentPage}</h1> }
     </div>
   );
 };

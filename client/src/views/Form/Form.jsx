@@ -35,13 +35,12 @@ const Form = ()=> {
         typeTwo:"",
     })
     //controla estado de los inputs
-    const [currentInput, setCurrentInput] = useState('');
+   
 
 const handleInputChange = (event) =>{
     const name = event.target.name;
     const value = event.target.value;
-    setCurrentInput(name);
-    setErrors(validation({...newPokemon, [name]: value}, name));
+    setErrors(validation({...newPokemon, [name]: value}));
     setNewPokemon({...newPokemon, [name]: value});
 }
 
@@ -62,13 +61,17 @@ const handleInputChange = (event) =>{
         <form onSubmit={handleSubmit} className={style.form} >
                 <div className={style.div}>
                 <div>
-                <input type="text" name="name" placeholder="Name" value={newPokemon.name} onChange={handleInputChange} />
-                
-                <input type="number" name="hp" placeholder="HP" value={newPokemon.hp} onChange={handleInputChange} /> 
+                <input type="text" name="name" placeholder="Name *" value={newPokemon.name} onChange={handleInputChange} />
+                {errors.name && <p style={{ color: "red" }}>{errors.name}</p>}
 
-                <input type="number" name="attack" placeholder="Attack" value={newPokemon.attack} onChange={handleInputChange} />
+                <input type="number" name="hp" placeholder="HP *" value={newPokemon.hp} onChange={handleInputChange} /> 
+                {errors.hp && <p style={{ color: "red" }}>{errors.hp}</p>}
 
-                <input type="number" name="defense" placeholder="Defense" value={newPokemon.defense} onChange={handleInputChange} />    
+                <input type="number" name="attack" placeholder="Attack *" value={newPokemon.attack} onChange={handleInputChange} />
+                {errors.attack && <p style={{ color: "red" }}>{errors.attack}</p>}
+
+                <input type="number" name="defense" placeholder="Defense *" value={newPokemon.defense} onChange={handleInputChange} /> 
+                {errors.defense && <p style={{ color: "red" }}>{errors.defense}</p>}
 
                 <input type="number" name="speed" placeholder="Speed" value={newPokemon.speed} onChange={handleInputChange} />
                 </div>
@@ -80,13 +83,14 @@ const handleInputChange = (event) =>{
                 <input type="text" name="image" placeholder="Image" value={newPokemon.image} onChange={handleInputChange} />
 
                 <select name="typeOne" value={newPokemon.typeOne} onChange={handleInputChange}>
-                    <option selected >Primary type</option>
+                    <option selected >Primary type * </option>
                     {types?.map((type, i)=>(
                         <option key={i} value={type.name} name = {type.name} placeholder="">
                             {type.name}
                         </option>
                     ))}
                 </select> 
+                    {errors.typeOne && <p style={{ color: "red" }}>{errors.typeOne}</p>}
                 <select name="typeTwo" value={newPokemon.typeTwo} onChange={e => handleInputChange(e)}>
                 <option selected >Secundary type</option>
                     {types?.map((type, i)=>(
@@ -98,15 +102,6 @@ const handleInputChange = (event) =>{
                 </div>
                 <button>Create Pokemon</button>
                 </div>
-            
-            {errors.name && <p style={{ color: "red" }}>{errors.name}</p>}
-            {errors.hp && <p style={{ color: "red" }}>{errors.hp}</p>}
-            {errors.attack && <p style={{ color: "red" }}>{errors.attack}</p>}
-            {errors.defense && <p style={{ color: "red" }}>{errors.defense}</p>}
-            {errors.speed && <p style={{ color: "red" }}>{errors.speed}</p>}
-            {errors.height && <p style={{ color: "red" }}>{errors.height}</p>}
-            {errors.weight && <p style={{ color: "red" }}>{errors.weight}</p>}
-            {errors.typeOne && <p style={{ color: "red" }}>{errors.typeOne}</p>}
         </form>
         </div>
     )

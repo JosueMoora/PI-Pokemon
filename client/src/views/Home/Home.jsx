@@ -29,11 +29,7 @@ const Home = () => {
   const first = last - pokemonsPerPage;
   const currentPokemons = pokemons.slice(first, last);
   const numberOfPages = pokemons.length / pokemonsPerPage;
-  const pagination = (numberPage) => {
-    setCurrentPage(numberPage);
-    document.getElementById(`${currentPage}`).classList.remove("active");
-    document.getElementById(`${numberPage}`).classList.toggle("active");
-  };
+ 
 
   //filter
   const types = useSelector((state) => state.types);
@@ -46,16 +42,12 @@ const Home = () => {
     event.preventDefault();
     dispatch(filterByType(event.target.value));
     setCurrentPage(1);
-    document.getElementById(`${currentPage}`).classList.remove("active");
-    document.getElementById("1").classList.toggle("active");
   };
 
   const handleFilterByCreated = (event) => {
     event.preventDefault();
     dispatch(filterByCreated(event.target.value));
     setCurrentPage(1);
-    document.getElementById(`${currentPage}`).classList.remove("active");
-    document.getElementById("1").classList.toggle("active");
   };
 
   // ordering:
@@ -65,8 +57,6 @@ const Home = () => {
     dispatch(orderByName(event.target.value));
     setOrder(event.target.value);
     setCurrentPage(1);
-    document.getElementById(`${currentPage}`).classList.remove("active");
-    document.getElementById("1").classList.toggle("active");
   };
 
   const handleOrderByAttack = (event) => {
@@ -74,8 +64,6 @@ const Home = () => {
     dispatch(orderByAttack(event.target.value));
     setOrder(event.target.value);
     setCurrentPage(1);
-    document.getElementById(`${currentPage}`).classList.remove("active");
-    document.getElementById("1").classList.toggle("active");
   };
 
   // reset:
@@ -89,8 +77,6 @@ const Home = () => {
     document.getElementById("created").value = "data";
     document.getElementById("types").value = "type";
     setCurrentPage(1);
-    document.getElementById(`${currentPage}`).classList.remove("active");
-    document.getElementById("1").classList.toggle("active");
 
   };
 
@@ -101,10 +87,6 @@ const Home = () => {
     currentPage <= numberOfPages
       ? setCurrentPage(currentPage + 1)
       : setCurrentPage(currentPage);
-    document.getElementById(`${currentPage}`).classList.remove("active");
-    currentPage <= numberOfPages
-      ? document.getElementById(`${currentPage + 1}`).classList.toggle("active")
-      : document.getElementById(`${currentPage}`).classList.toggle("active");
   };
 
   const handlePrevious = (event) => {
@@ -112,10 +94,6 @@ const Home = () => {
     currentPage > 1
       ? setCurrentPage(currentPage - 1)
       : setCurrentPage(currentPage);
-    document.getElementById(`${currentPage}`).classList.remove("active");
-    currentPage > 1
-      ? document.getElementById(`${currentPage - 1}`).classList.toggle("active")
-      : document.getElementById(`${currentPage}`).classList.toggle("active");
   };
 
   return (
@@ -154,6 +132,13 @@ const Home = () => {
         </button>
         
       </div>
+        <Pagination
+          pokemonsPerPage={pokemonsPerPage}
+          pokemons={pokemons.length}
+          currentPage={currentPage}
+          handlePrevious={handlePrevious}
+          handleNext={handleNext}
+        />
       <div className={style.container}>
         {
           !loader ? <Loading /> :
@@ -173,14 +158,6 @@ const Home = () => {
             })
           }
           </div>
-          <Pagination
-            pokemonsPerPage={pokemonsPerPage}
-            pokemons={pokemons.length}
-            pagination={pagination}
-            currentPage={currentPage}
-            handlePrevious={handlePrevious}
-            handleNext={handleNext}
-          />
     </div>
   );
 };

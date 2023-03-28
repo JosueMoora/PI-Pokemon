@@ -1,5 +1,6 @@
 import {
   GET_POKEMONS,
+  GET_BY_NAME,
   GET_TYPES,
   FILTER_BY_CREATED, 
   FILTER_BY_TYPE,
@@ -24,6 +25,13 @@ const rootReducer = (state = initialState, { type, payload }) => {
         filtered: payload,
         loader: true
       };
+
+    case GET_BY_NAME:
+      return {
+        ...state,
+        pokemons: state.pokemons.filter(pokemon => pokemon.name === payload.name),
+        loader: true
+      }
 
     case GET_TYPES:
       return { ...state, types: payload };

@@ -54,9 +54,6 @@ router.post("/", async (req, res) => {
       !hp ||
       !attack ||
       !defense ||
-      !speed ||
-      !height ||
-      !weight ||
       !typeOne
     )
       throw new Error("Debe tener todos los parametros");
@@ -65,6 +62,9 @@ router.post("/", async (req, res) => {
       image =
         "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Pokebola-pokeball-png-0.png/800px-Pokebola-pokeball-png-0.png";
 
+    if(!height) height = 1
+    if(!weight) weight = 1
+    if(!speed) speed = 1
     const newPokemon = {
       id: ++id,
       name,
