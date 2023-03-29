@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { getPokemons, getTypes } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../components/Loading/Loading";
-import Card from "../../components/Card/card";
+import Card from "../../components/Card/Card";
 import Pagination from "../../components/Pagination/Pagination";
 import Filter from "../../components/Filter/Filter";
 

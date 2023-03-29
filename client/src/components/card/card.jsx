@@ -1,5 +1,5 @@
 import {NavLink} from 'react-router-dom'
-import styles from './card.module.css';
+import styles from './Card.module.css';
 
 function Card({ id, name, image, types, attack, weight, height }) {
 
