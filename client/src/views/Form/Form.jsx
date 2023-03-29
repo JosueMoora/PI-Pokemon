@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
-import { createPokemon, getPokemons } from "../../redux/actions"
+import { createPokemon} from "../../redux/actions"
 import style from './Form.module.css'
 import { validation } from "./validate"
 const Form = ()=> {
@@ -50,7 +50,6 @@ const handleInputChange = (event) =>{
             return alert("you must complete all required fields, and verify that no errors appear")
         }
         dispatch(createPokemon(newPokemon))
-        dispatch(getPokemons())
         alert('🎉 Pokemon successfully created! 🥳');
         navigate(-1)
         
