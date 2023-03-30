@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import axios from "axios";
 
-axios.defaults.baseURL = "pi-pokemon-production-c78c.up.railway.app";
+axios.defaults.baseURL = "https://pi-pokemon-production-c78c.up.railway.app/";
 
 ReactDOM.render(
   <React.StrictMode>
