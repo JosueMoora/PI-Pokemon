@@ -1,0 +1,172 @@
+.card {
+
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 410px;
+    margin: 10px;
+
+    position: relative;
+    width: 290px;
+  }
+  
+  /* Agregamos los colores para cada tipo de Pokemon */
+  .cardNormal {
+    background: url(../../assets/types/brown.png);
+    background-size: cover;
+  }
+  
+  .cardFighting {
+    background: url(../../assets/types/orange.png);
+    background-size: cover;
+  }
+  
+  .cardFlying {
+    background: url(../../assets/types/purple.png);
+    background-size: cover;
+  }
+  
+  .cardPoison {
+    background: url(../../assets/types/violet.png);
+    background-size: cover;
+  }
+  
+  .cardGround {
+    background: url(../../assets/types/brown.png);
+    background-size: cover;
+  }
+  
+  .cardRock {
+    background: url(../../assets/types/gray.png);
+    background-size: cover;
+  }
+  
+  .cardBug {
+    background-image: url(../../assets/types/purple.png);
+    background-size: cover;
+  }
+  
+  .cardGhost {
+    background: url(../../assets/types/gray.png);
+    background-size: cover;
+  }
+  
+  .cardFire {
+    background: url(../../assets/types/orange.png);
+    background-size: cover;
+  }
+  
+  .cardSteel {
+    background: url(../../assets/types/blue.png);
+    background-size: cover;
+  }
+  
+  .cardGrass {
+    background: url(../../assets/types/green.png);
+    background-size: cover;
+  }
+
+
+  
+  .cardElectric {
+    background: url(../../assets/types/yellow.png);
+    background-size: cover;
+  }
+  
+
+  .cardWater {
+    background: url(../../assets/types/blue.png);
+    background-size: cover;
+  }
+
+  
+  
+  .cardPsychic {
+    background: url(../../assets/types/yellow.png);
+    background-size: cover;
+  }
+  
+  .cardDragon {
+    background: url(../../assets/types/violet.png);
+    background-size: cover;
+  }
+  
+  .cardIce {
+    background: url(../../assets/types/blue-dark.png);
+    background-size: cover;
+  }
+  
+  .cardDark {
+    background: url(../../assets/types/gray.png);
+    background-size: cover;
+  }
+  
+  .cardFairy {
+    background: url(../../assets/types/pink.png);
+    background-size: cover;
+  }
+  
+  
+  
+  .imageContainer {
+    height: 220px;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+  }
+  
+  .image {
+    display: block;
+    height: 220px;
+    margin: 0 auto;
+  }
+  
+  .details {
+    bottom: 0;
+    left: 0;
+    padding: 8px;
+    padding-bottom: 0px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  .name {
+    color: white;
+    font-size: 24px;
+    margin: 0;
+
+  }
+
+  
+  .type {
+    color: white;
+    font-size: 20px;
+    margin: 4px 0 0 0;
+  }
+  
+  
+  .details p {
+    text-transform: capitalize;
+}
+  .stats {
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+  }
+  
+  .stat {
+    text-align: center;
+  }
+  
+  .statLabel {
+    font-size: 18px;
+  }
+  
+  .statValue {
+    font-size: 24px;
+  }
+
+  
