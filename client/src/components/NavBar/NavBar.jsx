@@ -1,19 +1,27 @@
 import { useState } from "react"
-import { useDispatch } from "react-redux"
-import { NavLink } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
+import { NavLink} from "react-router-dom"
 import { getByName } from "../../redux/actions"
 import style from "./NavBar.module.css"
 const NavBar = ()=> {
   const dispatch = useDispatch()
+  const pokemons = useSelector(state => state.pokemons)
     const [name, setName] = useState("")
     const handleChange = (event) =>{
         setName(event.target.value)
     }
-    const handleSubmit = ()=> {
+
+    const pokemonFilter = pokemons && pokemons?.filter(p => p.name === name)
+    const handleSubmit = (event)=> {
+      event.preventDefault()
         if (!name){
             alert("you must enter a name")
-        } else {
+            setName('')
+        } else if (pokemonFilter?.length) {
             dispatch(getByName(name))
+            setName('')
+          } else {
+            alert("Pokemon not found 😔")
             setName('')
         }
     }
@@ -27,10 +35,8 @@ const NavBar = ()=> {
             Create Pokemon
           </NavLink>
       <div className={style.searchForm}>
-      <input type="text" onChange={handleChange} placeholder="search for any pokemon"value={name} onKeyDown={(event) => {
-            if (event.key === "Enter") {
-             handleSubmit()        
-}}} />
+      <input type="text" onChange={handleChange} placeholder="search for any pokemon"value={name}/>
+      <button type="submit" onClick={e => handleSubmit(e)}>Search</button>
       </div>
           <NavLink exact to="/about" className={style.active}>
             About

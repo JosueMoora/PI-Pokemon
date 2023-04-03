@@ -10,6 +10,7 @@ import {
 
 const initialState = {
   pokemons: [],
+  pokemonFilter: [],
   filtered: [],
   types: [],
   loader: false,
@@ -24,7 +25,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
     case GET_BY_NAME:
       return {
         ...state,
-        pokemons: state.pokemons.filter(
+        pokemonFilter: state.pokemons.filter(
           (pokemon) => pokemon.name === payload.name
         ),
         loader: true,

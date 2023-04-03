@@ -32,12 +32,12 @@ export const getTypes = () => {
   };
 };
 
-export const getByName = (name) => {
-  return async function (dispatch) {
+export const getByName = (name) =>  async dispatch => {
     const result = await axios.get(`/pokemons?name=${name}`);
     const pokemon = result.data;
-    dispatch({ type: GET_BY_NAME, payload: pokemon });
-  };
+    return dispatch({ type: GET_BY_NAME, payload: pokemon });
+    
+
 };
 
 export const createPokemon = (pokemon) => {

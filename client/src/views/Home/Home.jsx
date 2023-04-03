@@ -16,7 +16,7 @@ const Home = () => {
 
   const loader = useSelector((state) => state.loader);
 
-  const pokemons = useSelector((state) => state.pokemons);
+  const pokemons = useSelector((state) => state.pokemonFilter.length ? state.pokemonFilter : state.pokemons);
   const [pokemonsPerPage] = useState(12);
   const [currentPage, setCurrentPage] = useState(1);
   const last = currentPage * pokemonsPerPage;

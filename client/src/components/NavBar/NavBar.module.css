@@ -38,6 +38,16 @@
     text-align: center;
     background-color: rgba(82, 79, 79, 0.674);
   }
+
+  .searchForm button {
+    border: none;
+    /* margin: 15px 10px; */
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 1.2rem;
+    background-color: rgba(82, 79, 79, 0.674);
+    color: white;
+  }
   
 
 
