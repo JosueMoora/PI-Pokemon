@@ -48,6 +48,9 @@ const Home = () => {
   return (
     <div className={style.div}>
       <Filter setCurrentPage={setCurrentPage} setOrder={setOrder} />
+      {error ? 
+      null
+      :
       <Pagination
         pokemonsPerPage={pokemonsPerPage}
         pokemons={pokemons.length}
@@ -55,8 +58,10 @@ const Home = () => {
         handlePrevious={handlePrevious}
         handleNext={handleNext}
       />
+      }
       
-        {!loader ? <Loading /> : error === true ? <Error /> : 
+      
+        {!loader ? <Loading /> : error ? <Error /> : 
         <div className={style.container}>
           {
           currentPokemons?.map((pokemon) => {
