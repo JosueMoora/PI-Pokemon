@@ -23,13 +23,13 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return { ...state, pokemons: payload, filtered: payload, loader: true, error: false };
 
     case GET_BY_NAME:
-        const name = state.pokemons.filter(
+        const name = state.filtered.filter(
           (pokemon) => pokemon.name === payload.name
         )
         if (name.length){
           return {
             ...state,
-              filtered: name,
+              pokemons: name,
             loader: true,
             error: false,
           }; 
