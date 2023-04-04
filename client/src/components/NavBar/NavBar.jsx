@@ -1,29 +1,24 @@
 import { useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch} from "react-redux"
 import { NavLink} from "react-router-dom"
 import { getByName } from "../../redux/actions"
 import style from "./NavBar.module.css"
 const NavBar = ()=> {
   const dispatch = useDispatch()
-  const pokemons = useSelector(state => state.pokemons)
     const [name, setName] = useState("")
     const handleChange = (event) =>{
         setName(event.target.value)
     }
 
-    const pokemonFilter = pokemons && pokemons?.filter(p => p.name === name)
     const handleSubmit = (event)=> {
       event.preventDefault()
         if (!name){
             alert("you must enter a name")
             setName('')
-        } else if (pokemonFilter?.length) {
+        } else  {
             dispatch(getByName(name))
             setName('')
-          } else {
-            alert("Pokemon not found 😔")
-            setName('')
-        }
+          }
     }
     return (
       <div className={style.div}>

@@ -1,0 +1,11 @@
+.error img{
+    width: 300px;
+}
+.error {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}

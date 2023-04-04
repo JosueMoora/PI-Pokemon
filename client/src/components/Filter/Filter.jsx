@@ -8,7 +8,7 @@ import {
   orderByName,
 } from "../../redux/actions";
 import style from "./Filter.module.css";
-const Filter = ({ setCurrentPage, setOrder }) => {
+const Filter = ({ setCurrentPage, setOrder}) => {
   const dispatch = useDispatch();
   const types = useSelector((state) => state.types);
 
@@ -40,10 +40,8 @@ const Filter = ({ setCurrentPage, setOrder }) => {
     setCurrentPage(1);
   };
 
-
-
   const handleReset = (event) => {
-    event.preventDefault();
+    event.preventDefault()
     dispatch(getPokemons());
     dispatch(getTypes());
     document.getElementById("order").value = "order";
@@ -52,6 +50,8 @@ const Filter = ({ setCurrentPage, setOrder }) => {
     document.getElementById("types").value = "type";
     setCurrentPage(1);
   };
+
+  
 
   return (
     <div className={style.filterBar}>
@@ -83,7 +83,7 @@ const Filter = ({ setCurrentPage, setOrder }) => {
         <option value="db">DB</option>
         <option value="api">Api</option>
       </select>
-      <button type="submit" onClick={(event) => handleReset(event)}>
+      <button type="submit" onClick={event => handleReset(event)}>
         Reset
       </button>
     </div>

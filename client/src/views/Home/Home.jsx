@@ -3,9 +3,11 @@ import { useState, useEffect } from "react";
 import { getPokemons, getTypes } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../components/Loading/Loading";
+import Error from "../../components/Error/Error"
 import Card from "../../components/Card/Card";
 import Pagination from "../../components/Pagination/Pagination";
 import Filter from "../../components/Filter/Filter";
+
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -15,8 +17,8 @@ const Home = () => {
   }, [dispatch]);
 
   const loader = useSelector((state) => state.loader);
-
-  const pokemons = useSelector((state) => state.pokemonFilter.length ? state.pokemonFilter : state.pokemons);
+  const error = useSelector((state)=> state.error)
+  const pokemons = useSelector((state) => state.filtered);
   const [pokemonsPerPage] = useState(12);
   const [currentPage, setCurrentPage] = useState(1);
   const last = currentPage * pokemonsPerPage;
@@ -42,6 +44,7 @@ const Home = () => {
       : setCurrentPage(currentPage);
   };
 
+
   return (
     <div className={style.div}>
       <Filter setCurrentPage={setCurrentPage} setOrder={setOrder} />
@@ -52,10 +55,10 @@ const Home = () => {
         handlePrevious={handlePrevious}
         handleNext={handleNext}
       />
-      <div className={style.container}>
-        {!loader ? (
-          <Loading />
-        ) : (
+      
+        {!loader ? <Loading /> : error === true ? <Error /> : 
+        <div className={style.container}>
+          {
           currentPokemons?.map((pokemon) => {
             return (
               <Card
@@ -70,8 +73,9 @@ const Home = () => {
               />
             );
           })
-        )}
-      </div>
+        }
+        </div>
+        }
     </div>
   );
 };

@@ -10,9 +10,9 @@ import {
 
 const initialState = {
   pokemons: [],
-  pokemonFilter: [],
   filtered: [],
   types: [],
+  error: false,
   loader: false,
 };
 
@@ -20,16 +20,24 @@ const rootReducer = (state = initialState, { type, payload }) => {
   switch (type) {
 
     case GET_POKEMONS:
-      return { ...state, pokemons: payload, filtered: payload, loader: true };
+      return { ...state, pokemons: payload, filtered: payload, loader: true, error: false };
 
     case GET_BY_NAME:
-      return {
-        ...state,
-        pokemonFilter: state.pokemons.filter(
+        const name = state.pokemons.filter(
           (pokemon) => pokemon.name === payload.name
-        ),
-        loader: true,
-      };
+        )
+        if (name.length){
+          return {
+            ...state,
+              filtered: name,
+            loader: true,
+            error: false,
+          }; 
+        } else {
+          return {...state, error: true}        
+        }
+      
+      
 
     case GET_TYPES:
       return { ...state, types: payload };
