@@ -1,13 +1,29 @@
-.div{
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-}
-
-.container{
+.div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  .container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 30px;
-}
+  }
+  
+  
+  @media screen and (max-width: 768px) {
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+      }
+    .container > div {
+        flex: 1 1 200px; /* Ancho mínimo de 200px */
+        max-width: 100%; /* Ancho máximo igual al ancho del contenedor */
+      }
+  }
+  
 

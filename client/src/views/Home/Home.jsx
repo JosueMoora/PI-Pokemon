@@ -1,24 +1,24 @@
 import style from "./Home.module.css";
-import { useState, useEffect } from "react";
-import { getPokemons, getTypes } from "../../redux/actions";
+import { useEffect, useState } from "react";
+// import { getPokemons, getTypes } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error"
 import Card from "../../components/Card/Card";
 import Pagination from "../../components/Pagination/Pagination";
 import Filter from "../../components/Filter/Filter";
+import { getPokemons, getTypes } from "../../redux/actions";
 
 
 const Home = () => {
+  const pokemons = useSelector((state) => state.pokemons);  
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getPokemons());
-    dispatch(getTypes());
-  }, [dispatch]);
+    !pokemons.length && dispatch(getPokemons()); dispatch(getTypes());
+  }, []);
 
   const loader = useSelector((state) => state.loader);
   const error = useSelector((state)=> state.error)
-  const pokemons = useSelector((state) => state.pokemons);  
   const [pokemonsPerPage] = useState(12);
   const [currentPage, setCurrentPage] = useState(1);
   const last = currentPage * pokemonsPerPage;

@@ -2,7 +2,6 @@ import style from "./Landing.module.css"
 import { NavLink } from "react-router-dom";
 import pokeBall from '../../assets/pokeball.png'
 const Landing = () => {
-
     
     return (
         <div className={style.container}>

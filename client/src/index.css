@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Signika+Negative:wght@300;400&display=swap');
-
-body {
+*{
   margin: 0%;
+  /* padding: 0%; */
+}
+body {
   background: url(./assets/Desktop.png);
   background-size: cover;
   /* background-repeat: no-repeat; */
