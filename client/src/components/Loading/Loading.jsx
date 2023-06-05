@@ -4,7 +4,7 @@ import style from "./Loading.module.css"
 const Loading = ()=> {
     return (
         <div  className={style.loading}>
-            <img src={img} alt="Loading" />
+            <img src={img} alt="Loading..." />
         </div>
 
     )
