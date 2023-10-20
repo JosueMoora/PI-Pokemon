@@ -12,7 +12,8 @@
         background-color: rgba(82, 79, 79, 0.674);
         border-radius: 20px;
         font-size: 1rem;
-        color: white;        
+        color: white; 
+        cursor: pointer;       
     }
     
     .filterBar button{
@@ -24,4 +25,5 @@
         font-size: 1rem;
         background-color: rgba(229, 12, 12, 0.674);
         color: white;
+        cursor: pointer;
 }

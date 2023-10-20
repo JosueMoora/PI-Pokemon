@@ -67,6 +67,7 @@ const Home = () => {
           currentPokemons?.map((pokemon) => {
             return (
               <Card
+                key={pokemon.id}
                 id={pokemon.id}
                 name={pokemon.name}
                 attack={pokemon.attack}
