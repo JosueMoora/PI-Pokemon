@@ -1,5 +1,5 @@
 import React from "react";
-import style from './Pagination.module.css'
+import style from "./Pagination.module.css";
 const Pagination = ({
   pokemonsPerPage,
   pokemons,
@@ -7,7 +7,6 @@ const Pagination = ({
   handlePrevious,
   currentPage,
 }) => {
-  
   const numOfPages = [];
   const amountOfPages = Math.ceil(pokemons / pokemonsPerPage);
   for (let i = 1; i <= amountOfPages; i++) {
@@ -16,7 +15,18 @@ const Pagination = ({
 
   return (
     <div className={style.pagination}>
-      {numOfPages.length > 1 ? <> <button onClick={(e) => handlePrevious(e)}> ← </button> <h1>{currentPage} of {numOfPages.length}</h1> <button onClick={(e) => handleNext(e)}> → </button> </> : <h1>{currentPage}</h1> }
+      {numOfPages.length > 1 ? (
+        <>
+          {" "}
+          <button onClick={(e) => handlePrevious(e)}> ← </button>{" "}
+          <h1>
+            {currentPage} of {numOfPages.length}
+          </h1>{" "}
+          <button onClick={(e) => handleNext(e)}> → </button>{" "}
+        </>
+      ) : (
+        <h1>{currentPage}</h1>
+      )}
     </div>
   );
 };
